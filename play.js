@@ -89,7 +89,7 @@ var play_state = {
     },
 
     add_row_of_pipes: function() {
-        var hole = Math.floor(Math.random()*7)+1;
+        var hole = Math.floor(Math.random()*6)+1;
 
         for (var i = 0; i < 10; i++)
             if (i != hole && i != hole + 1 && i != hole + 2)
