@@ -81,7 +81,7 @@ var play_state = {
         tip.body.velocity.x = -200;
         tip.outOfBoundsKill = true;
 
-        if (rotate)
+        if (rotate && tip.angle == 0)
         {
             tip.anchor.setTo(0.5, 1);
             tip.angle -= 180;
