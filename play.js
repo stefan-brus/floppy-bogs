@@ -94,9 +94,9 @@ var play_state = {
         for (var i = 0; i < 10; i++)
             if (i != hole && i != hole + 1 && i != hole + 2)
                 if (i == hole - 1)
-                    this.add_tip(377, i * 50, false);
+                    this.add_tip(375, i * 50, false);
                 else if (i == hole + 3)
-                    this.add_tip(390, i * 50, true);
+                    this.add_tip(385, i * 50, true);
                 else
                     this.add_one_pipe(375, i * 50);
 
