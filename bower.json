@@ -1,7 +1,7 @@
 {
-  "name": "floppy-bogs",
+  "name": "flappy-bird-reborn",
   "version": "0.0.0",
   "dependencies": {
-    "phaser-official": "2.0.2"
+    "phaser-official": "2.0.3"
   }
 }
