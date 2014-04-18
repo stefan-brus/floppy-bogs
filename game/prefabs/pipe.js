@@ -13,9 +13,4 @@ var Pipe = function(game, x, y, frame) {
 Pipe.prototype = Object.create(Phaser.Sprite.prototype);
 Pipe.prototype.constructor = Pipe;
 
-Pipe.prototype.update = function() {
-  // write your prefab's specific update code here
-
-};
-
 module.exports = Pipe;
