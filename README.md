@@ -1,5 +1,12 @@
-#Flappy Bird Reborn
-The HTML5 Javascript remix built with [Phaser](http://phaser.io) 2.0 and [generator-phaser-official](http://github.com/codevinsky/generator-phaser-official)
+floppy-bogs
+===========
 
-## Learn to make this game from the ground up
-[Phaser 2.0 Tutorial: Flappy Bird](http://codevinsky.ghost.io/phaser-2-0-tutorial-flappy-bird-part-1/)
+NOT SAFE FOR WORK
+
+I made a flappy bird clone based on the dolan meme. I'm sorry.
+
+Play it here: http://stefan-brus.github.io/floppy-bogs/
+
+Inspired by http://www.reddit.com/r/dolan/comments/22wgbs/flappy_bogs/
+
+Based on this tutorial by codevinsky: http://codevinsky.ghost.io/phaser-2-0-tutorial-flappy-bird-part-1/
