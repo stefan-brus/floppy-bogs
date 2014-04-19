@@ -19,7 +19,7 @@ game.state.add('preload', PreloadState);
 game.state.start('boot');
 
   
-},{"./states/boot":7,"./states/menu":8,"./states/play":9,"./states/preload":10}],2:[function(require,module,exports){
+},{"./states/boot":8,"./states/menu":9,"./states/play":10,"./states/preload":11}],2:[function(require,module,exports){
 'use strict';
 
 var Bird = function(game, x, y, frame) {
@@ -93,6 +93,31 @@ module.exports = Bird;
 },{}],3:[function(require,module,exports){
 'use strict';
 
+var Dolan = function(game) {
+  Phaser.Sprite.call(this, game, 0, 0, 'dolan');
+
+  this.game.physics.arcade.enableBody(this);
+
+  this.body.allowGravity = false;
+  this.body.immovable = true;
+
+  this.exists = false;
+};
+
+Dolan.prototype = Object.create(Phaser.Sprite.prototype);
+Dolan.prototype.constructor = Dolan;
+
+Dolan.prototype.update = function() {
+
+  // write your prefab's specific update code here
+
+};
+
+module.exports = Dolan;
+
+},{}],4:[function(require,module,exports){
+'use strict';
+
 var Ground = function(game, x, y, width, height) {
   Phaser.TileSprite.call(this, game, x, y, width, height, 'ground');
   // start scrolling our ground
@@ -120,7 +145,7 @@ Ground.prototype.update = function() {
 };
 
 module.exports = Ground;
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 'use strict';
 
 var Pipe = function(game, x, y, frame) {
@@ -142,7 +167,7 @@ Pipe.prototype.update = function() {
 };
 
 module.exports = Pipe;
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 var Pipe = require('./pipe');
@@ -190,7 +215,7 @@ PipeGroup.prototype.stop = function() {
 };
 
 module.exports = PipeGroup;
-},{"./pipe":4}],6:[function(require,module,exports){
+},{"./pipe":5}],7:[function(require,module,exports){
 'use strict';
 
 var Scoreboard = function(game) {
@@ -294,7 +319,7 @@ Scoreboard.prototype.update = function() {
 
 module.exports = Scoreboard;
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 
 'use strict';
 
@@ -313,7 +338,7 @@ Boot.prototype = {
 
 module.exports = Boot;
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 
 'use strict';
 function Menu() {}
@@ -376,7 +401,7 @@ Menu.prototype = {
 
 module.exports = Menu;
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 
 'use strict';
 var Bird = require('../prefabs/bird');
@@ -384,6 +409,7 @@ var Ground = require('../prefabs/ground');
 var Pipe = require('../prefabs/pipe');
 var PipeGroup = require('../prefabs/pipeGroup');
 var Scoreboard = require('../prefabs/scoreboard');
+var Dolan = require('../prefabs/dolan');
 
 function Play() {
 }
@@ -401,33 +427,38 @@ Play.prototype = {
 
     // create and add a group to hold our pipeGroup prefabs
     this.pipes = this.game.add.group();
-    
+
     // create and add a new Bird object
     this.bird = new Bird(this.game, 100, this.game.height/2);
     this.game.add.existing(this.bird);
-    
-    
+
+
 
     // create and add a new Ground object
     this.ground = new Ground(this.game, 0, 400, 335, 112);
     this.game.add.existing(this.ground);
-    
+
+
+    // dolan
+    this.dolan = new Dolan(this.game);
+    this.game.add.existing(this.dolan);
+
 
     // add keyboard controls
     this.flapKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     this.flapKey.onDown.addOnce(this.startGame, this);
     this.flapKey.onDown.add(this.bird.flap, this.bird);
-    
+
 
     // add mouse/touch controls
     this.game.input.onDown.addOnce(this.startGame, this);
     this.game.input.onDown.add(this.bird.flap, this.bird);
-    
+
 
     // keep the spacebar from propogating up to the browser
     this.game.input.keyboard.addKeyCapture([Phaser.Keyboard.SPACEBAR]);
 
-    
+
 
     this.score = 0;
     this.scoreText = this.game.add.bitmapText(this.game.width/2, 10, 'flappyfont',this.score.toString(), 24);
@@ -445,13 +476,13 @@ Play.prototype = {
     this.pipeHitSound = this.game.add.audio('pipeHit');
     this.groundHitSound = this.game.add.audio('groundHit');
     this.scoreSound = this.game.add.audio('score');
-    
+
   },
   update: function() {
     // enable collisions between the bird and the ground
     this.game.physics.arcade.collide(this.bird, this.ground, this.deathHandler, null, this);
 
-    if(!this.gameover) {    
+    if(!this.gameover) {
         // enable collisions between the bird and each group in the pipes group
         this.pipes.forEach(function(pipeGroup) {
             this.checkScore(pipeGroup);
@@ -460,13 +491,14 @@ Play.prototype = {
     }
 
 
-    
+
   },
   shutdown: function() {
     this.game.input.keyboard.removeKey(Phaser.Keyboard.SPACEBAR);
     this.bird.destroy();
     this.pipes.destroy();
     this.scoreboard.destroy();
+    this.dolan.exists = false;
   },
   startGame: function() {
     if(!this.bird.alive && !this.gameover) {
@@ -492,6 +524,7 @@ Play.prototype = {
         this.groundHitSound.play();
         this.scoreboard = new Scoreboard(this.game);
         this.game.add.existing(this.scoreboard);
+        this.dolan.exists = true;
         this.scoreboard.show(this.score);
         this.bird.onGround = true;
     } else if (enemy instanceof Pipe){
@@ -505,23 +538,23 @@ Play.prototype = {
         this.pipeGenerator.timer.stop();
         this.ground.stopScroll();
     }
-    
+
   },
   generatePipes: function() {
     var pipeY = this.game.rnd.integerInRange(-100, 100);
     var pipeGroup = this.pipes.getFirstExists(false);
     if(!pipeGroup) {
-        pipeGroup = new PipeGroup(this.game, this.pipes);  
+        pipeGroup = new PipeGroup(this.game, this.pipes);
     }
     pipeGroup.reset(this.game.width, pipeY);
-    
+
 
   }
 };
 
 module.exports = Play;
 
-},{"../prefabs/bird":2,"../prefabs/ground":3,"../prefabs/pipe":4,"../prefabs/pipeGroup":5,"../prefabs/scoreboard":6}],10:[function(require,module,exports){
+},{"../prefabs/bird":2,"../prefabs/dolan":3,"../prefabs/ground":4,"../prefabs/pipe":5,"../prefabs/pipeGroup":6,"../prefabs/scoreboard":7}],11:[function(require,module,exports){
 
 'use strict';
 function Preload() {
@@ -542,10 +575,10 @@ Preload.prototype = {
     this.load.spritesheet('bird', 'assets/bird.png', 34,24,3);
     this.load.spritesheet('pipe', 'assets/pipes.png', 54,320,2);
     this.load.image('startButton', 'assets/start-button.png');
-    
+
     this.load.image('instructions', 'assets/instructions.png');
     this.load.image('getReady', 'assets/get-ready.png');
-    
+
     this.load.image('scoreboard', 'assets/scoreboard.png');
     this.load.spritesheet('medals', 'assets/medals.png',44, 46, 2);
     this.load.image('gameover', 'assets/gameover.png');
@@ -559,6 +592,7 @@ Preload.prototype = {
 
     this.load.bitmapFont('flappyfont', 'assets/fonts/flappyfont/flappyfont.png', 'assets/fonts/flappyfont/flappyfont.fnt');
 
+    this.load.image('dolan', 'assets/dolan.png');
   },
   create: function() {
     this.asset.cropEnabled = false;
