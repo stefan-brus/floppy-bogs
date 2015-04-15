@@ -1,7 +1,7 @@
 'use strict';
 
 var Dolan = function(game) {
-  Phaser.Sprite.call(this, game, 0, 0, 'dolan');
+  Phaser.Sprite.call(this, game, -20, 50, 'dolan');
 
   this.game.physics.arcade.enableBody(this);
 

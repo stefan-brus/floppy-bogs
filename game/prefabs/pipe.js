@@ -7,7 +7,7 @@ var Pipe = function(game, x, y, frame) {
 
   this.body.allowGravity = false;
   this.body.immovable = true;
-  
+
 };
 
 Pipe.prototype = Object.create(Phaser.Sprite.prototype);
@@ -15,7 +15,7 @@ Pipe.prototype.constructor = Pipe;
 
 Pipe.prototype.update = function() {
   // write your prefab's specific update code here
-  
+
 };
 
 module.exports = Pipe;
