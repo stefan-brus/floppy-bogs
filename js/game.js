@@ -18,7 +18,7 @@ game.state.add('preload', PreloadState);
 
 game.state.start('boot');
 
-  
+
 },{"./states/boot":8,"./states/menu":9,"./states/play":10,"./states/preload":11}],2:[function(require,module,exports){
 'use strict';
 
@@ -45,8 +45,8 @@ var Bird = function(game, x, y, frame) {
 
   this.events.onKilled.add(this.onKilled, this);
 
-  
-  
+
+
 };
 
 Bird.prototype = Object.create(Phaser.Sprite.prototype);
@@ -57,7 +57,7 @@ Bird.prototype.update = function() {
   // if it is rotate the bird towards the ground by 2.5 degrees
   if(this.angle < 90 && this.alive) {
     this.angle += 2.5;
-  } 
+  }
 
   if(!this.alive) {
     this.body.velocity.x = 0;
@@ -74,7 +74,7 @@ Bird.prototype.flap = function() {
   }
 };
 
-Bird.prototype.revived = function() { 
+Bird.prototype.revived = function() {
 };
 
 Bird.prototype.onKilled = function() {
@@ -122,11 +122,11 @@ var Ground = function(game, x, y, width, height) {
   Phaser.TileSprite.call(this, game, x, y, width, height, 'ground');
   // start scrolling our ground
   this.autoScroll(-200,0);
-  
+
   // enable physics on the ground sprite
   // this is needed for collision detection
   this.game.physics.arcade.enableBody(this);
-      
+
   // we don't want the ground's body
   // to be affected by gravity or external forces
   this.body.allowGravity = false;
@@ -139,9 +139,9 @@ Ground.prototype = Object.create(Phaser.TileSprite.prototype);
 Ground.prototype.constructor = Ground;
 
 Ground.prototype.update = function() {
-  
+
   // write your prefab's specific update code here
-  
+
 };
 
 module.exports = Ground;
@@ -190,7 +190,7 @@ PipeGroup.prototype = Object.create(Phaser.Group.prototype);
 PipeGroup.prototype.constructor = PipeGroup;
 
 PipeGroup.prototype.update = function() {
-  this.checkWorldBounds(); 
+  this.checkWorldBounds();
 };
 
 PipeGroup.prototype.checkWorldBounds = function() {
@@ -329,7 +329,7 @@ function Boot() {
 
 Boot.prototype = {
   preload: function() {
-    this.load.image('preloader', 'assets/preloader.gif');
+    this.load.image('preloader', 'wp-content/uploads/2015/07/preloader.gif');
   },
   create: function() {
     this.game.input.maxPointers = 1;
@@ -351,35 +351,35 @@ Menu.prototype = {
   create: function() {
     // add the background sprite
     this.background = this.game.add.sprite(0,0,'background');
-    
+
     // add the ground sprite as a tile
     // and start scrolling in the negative x direction
     this.ground = this.game.add.tileSprite(0,400, 335,112,'ground');
     this.ground.autoScroll(-200,0);
 
     /** STEP 1 **/
-    // create a group to put the title assets in 
+    // create a group to put the title assets in
     // so they can be manipulated as a whole
     this.titleGroup = this.game.add.group()
-      
+
     /** STEP 2 **/
     // create the title sprite
     // and add it to the group
     this.title = this.add.sprite(0,0,'title');
     this.titleGroup.add(this.title);
-    
+
     /** STEP 3 **/
-    // create the bird sprite 
+    // create the bird sprite
     // and add it to the title group
     this.bird = this.add.sprite(200,5,'bird');
     this.titleGroup.add(this.bird);
-    
+
     /** STEP 4 **/
     // add an animation to the bird
     // and begin the animation
     this.bird.animations.add('flap');
     this.bird.animations.play('flap', 12, true);
-    
+
     /** STEP 5 **/
     // Set the originating location of the group
     this.titleGroup.x = 30;
@@ -570,30 +570,30 @@ Preload.prototype = {
 
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     this.load.setPreloadSprite(this.asset);
-    this.load.image('background', 'assets/background.png');
-    this.load.image('ground', 'assets/ground.png');
-    this.load.image('title', 'assets/title.png');
-    this.load.spritesheet('bird', 'assets/bird.png', 34,24,3);
-    this.load.spritesheet('pipe', 'assets/pipes.png', 54,320,2);
-    this.load.image('startButton', 'assets/start-button.png');
+    this.load.image('background', 'wp-content/uploads/2015/07/background.png');
+    this.load.image('ground', 'wp-content/uploads/2015/07/ground.png');
+    this.load.image('title', 'wp-content/uploads/2015/07/title.png');
+    this.load.spritesheet('bird', 'wp-content/uploads/2015/07/bird.png', 34,24,3);
+    this.load.spritesheet('pipe', 'wp-content/uploads/2015/07/pipes.png', 54,320,2);
+    this.load.image('startButton', 'wp-content/uploads/2015/07/start-button.png');
 
-    this.load.image('instructions', 'assets/instructions.png');
-    this.load.image('getReady', 'assets/get-ready.png');
+    this.load.image('instructions', 'wp-content/uploads/2015/07/instructions.png');
+    this.load.image('getReady', 'wp-content/uploads/2015/07/get-ready.png');
 
-    this.load.image('scoreboard', 'assets/scoreboard.png');
-    this.load.spritesheet('medals', 'assets/medals.png',44, 46, 2);
-    this.load.image('gameover', 'assets/gameover.png');
-    this.load.image('particle', 'assets/particle.png');
+    this.load.image('scoreboard', 'wp-content/uploads/2015/07/scoreboard.png');
+    this.load.spritesheet('medals', 'wp-content/uploads/2015/07/medals.png',44, 46, 2);
+    this.load.image('gameover', 'wp-content/uploads/2015/07/gameover.png');
+    this.load.image('particle', 'wp-content/uploads/2015/07/particle.png');
 
-    this.load.audio('flap', 'assets/flap.wav');
-    this.load.audio('pipeHit', 'assets/pipe-hit.wav');
-    this.load.audio('groundHit', 'assets/ground-hit.wav');
-    this.load.audio('score', 'assets/score.wav');
-    this.load.audio('ouch', 'assets/ouch.wav');
+    this.load.audio('flap', 'wp-content/uploads/2015/07/flap.wav');
+    this.load.audio('pipeHit', 'wp-content/uploads/2015/07/pipe-hit.wav');
+    this.load.audio('groundHit', 'wp-content/uploads/2015/07/ground-hit.wav');
+    this.load.audio('score', 'wp-content/uploads/2015/07/score.wav');
+    this.load.audio('ouch', 'wp-content/uploads/2015/07/ouch.wav');
 
-    this.load.bitmapFont('flappyfont', 'assets/fonts/flappyfont/flappyfont.png', 'assets/fonts/flappyfont/flappyfont.fnt');
+    this.load.bitmapFont('flappyfont', 'wp-content/uploads/2015/07/flappyfont.png', 'wp-content/uploads/2015/07/flappyfont.fnt');
 
-    this.load.image('dolan', 'assets/dolan.png');
+    this.load.image('dolan', 'wp-content/uploads/2015/07/dolan.png');
   },
   create: function() {
     this.asset.cropEnabled = false;
