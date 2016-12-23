@@ -329,7 +329,7 @@ function Boot() {
 
 Boot.prototype = {
   preload: function() {
-    this.load.image('preloader', 'wp-content/uploads/2015/07/preloader.gif');
+    this.load.image('preloader', 'assets/preloader.gif');
   },
   create: function() {
     this.game.input.maxPointers = 1;
@@ -570,30 +570,30 @@ Preload.prototype = {
 
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     this.load.setPreloadSprite(this.asset);
-    this.load.image('background', 'wp-content/uploads/2015/07/background.png');
-    this.load.image('ground', 'wp-content/uploads/2015/07/ground.png');
-    this.load.image('title', 'wp-content/uploads/2015/07/title.png');
-    this.load.spritesheet('bird', 'wp-content/uploads/2015/07/bird.png', 34,24,3);
-    this.load.spritesheet('pipe', 'wp-content/uploads/2015/07/pipes.png', 54,320,2);
-    this.load.image('startButton', 'wp-content/uploads/2015/07/start-button.png');
+    this.load.image('background', 'assets/background.png');
+    this.load.image('ground', 'assets/ground.png');
+    this.load.image('title', 'assets/title.png');
+    this.load.spritesheet('bird', 'assets/bird.png', 34,24,3);
+    this.load.spritesheet('pipe', 'assets/pipes.png', 54,320,2);
+    this.load.image('startButton', 'assets/start-button.png');
 
-    this.load.image('instructions', 'wp-content/uploads/2015/07/instructions.png');
-    this.load.image('getReady', 'wp-content/uploads/2015/07/get-ready.png');
+    this.load.image('instructions', 'assets/instructions.png');
+    this.load.image('getReady', 'assets/get-ready.png');
 
-    this.load.image('scoreboard', 'wp-content/uploads/2015/07/scoreboard.png');
-    this.load.spritesheet('medals', 'wp-content/uploads/2015/07/medals.png',44, 46, 2);
-    this.load.image('gameover', 'wp-content/uploads/2015/07/gameover.png');
-    this.load.image('particle', 'wp-content/uploads/2015/07/particle.png');
+    this.load.image('scoreboard', 'assets/scoreboard.png');
+    this.load.spritesheet('medals', 'assets/medals.png',44, 46, 2);
+    this.load.image('gameover', 'assets/gameover.png');
+    this.load.image('particle', 'assets/particle.png');
 
-    this.load.audio('flap', 'wp-content/uploads/2015/07/flap.wav');
-    this.load.audio('pipeHit', 'wp-content/uploads/2015/07/pipe-hit.wav');
-    this.load.audio('groundHit', 'wp-content/uploads/2015/07/ground-hit.wav');
-    this.load.audio('score', 'wp-content/uploads/2015/07/score.wav');
-    this.load.audio('ouch', 'wp-content/uploads/2015/07/ouch.wav');
+    this.load.audio('flap', 'assets/flap.wav');
+    this.load.audio('pipeHit', 'assets/pipe-hit.wav');
+    this.load.audio('groundHit', 'assets/ground-hit.wav');
+    this.load.audio('score', 'assets/score.wav');
+    this.load.audio('ouch', 'assets/ouch.wav');
 
-    this.load.bitmapFont('flappyfont', 'wp-content/uploads/2015/07/flappyfont.png', 'wp-content/uploads/2015/07/flappyfont.fnt');
+    this.load.bitmapFont('flappyfont', 'assets/flappyfont.png', 'assets/flappyfont.fnt');
 
-    this.load.image('dolan', 'wp-content/uploads/2015/07/dolan.png');
+    this.load.image('dolan', 'assets/dolan.png');
   },
   create: function() {
     this.asset.cropEnabled = false;
