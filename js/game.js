@@ -18,7 +18,6 @@ game.state.add('preload', PreloadState);
 
 game.state.start('boot');
 
-  
 },{"./states/boot":8,"./states/menu":9,"./states/play":10,"./states/preload":11}],2:[function(require,module,exports){
 'use strict';
 
@@ -45,8 +44,6 @@ var Bird = function(game, x, y, frame) {
 
   this.events.onKilled.add(this.onKilled, this);
 
-  
-  
 };
 
 Bird.prototype = Object.create(Phaser.Sprite.prototype);
@@ -57,7 +54,8 @@ Bird.prototype.update = function() {
   // if it is rotate the bird towards the ground by 2.5 degrees
   if(this.angle < 90 && this.alive) {
     this.angle += 2.5;
-  } 
+
+  }
 
   if(!this.alive) {
     this.body.velocity.x = 0;
@@ -94,6 +92,7 @@ module.exports = Bird;
 'use strict';
 
 var Dolan = function(game) {
+  
   Phaser.Sprite.call(this, game, 0, 0, 'dolan');
 
   this.game.physics.arcade.enableBody(this);
@@ -122,11 +121,9 @@ var Ground = function(game, x, y, width, height) {
   Phaser.TileSprite.call(this, game, x, y, width, height, 'ground');
   // start scrolling our ground
   this.autoScroll(-200,0);
-  
   // enable physics on the ground sprite
   // this is needed for collision detection
   this.game.physics.arcade.enableBody(this);
-      
   // we don't want the ground's body
   // to be affected by gravity or external forces
   this.body.allowGravity = false;
@@ -139,7 +136,6 @@ Ground.prototype = Object.create(Phaser.TileSprite.prototype);
 Ground.prototype.constructor = Ground;
 
 Ground.prototype.update = function() {
-  
   // write your prefab's specific update code here
   
 };
@@ -155,7 +151,6 @@ var Pipe = function(game, x, y, frame) {
 
   this.body.allowGravity = false;
   this.body.immovable = true;
-  
 };
 
 Pipe.prototype = Object.create(Phaser.Sprite.prototype);
@@ -163,7 +158,6 @@ Pipe.prototype.constructor = Pipe;
 
 Pipe.prototype.update = function() {
   // write your prefab's specific update code here
-  
 };
 
 module.exports = Pipe;
@@ -228,7 +222,6 @@ var Scoreboard = function(game) {
 
   this.scoreboard = this.create(this.game.width / 2, 200, 'scoreboard');
   this.scoreboard.anchor.setTo(0.5, 0.5);
-  
   this.scoreText = this.game.add.bitmapText(this.scoreboard.width, 180, 'flappyfont', '', 18);
   this.add(this.scoreText);
   
@@ -243,7 +236,6 @@ var Scoreboard = function(game) {
 
   this.y = this.game.height;
   this.x = 0;
-  
 };
 
 Scoreboard.prototype = Object.create(Phaser.Group.prototype);
@@ -274,10 +266,8 @@ Scoreboard.prototype.show = function(score) {
   this.game.add.tween(this).to({y: 0}, 1000, Phaser.Easing.Bounce.Out, true);
 
   if (coin) {
-    
     coin.anchor.setTo(0.5, 0.5);
     this.scoreboard.addChild(coin);
-    
      // Emitters have a center point and a width/height, which extends from their center point to the left/right and up/down
     var emitter = this.game.add.emitter(coin.x, coin.y, 400);
     this.scoreboard.addChild(emitter);
@@ -301,7 +291,6 @@ Scoreboard.prototype.show = function(score) {
     emitter.setAll('body.allowGravity', false);
 
     emitter.start(false, 1000, 1000);
-    
   }
 };
 
@@ -350,7 +339,6 @@ Menu.prototype = {
   create: function() {
     // add the background sprite
     this.background = this.game.add.sprite(0,0,'background');
-    
     // add the ground sprite as a tile
     // and start scrolling in the negative x direction
     this.ground = this.game.add.tileSprite(0,400, 335,112,'ground');
@@ -360,25 +348,21 @@ Menu.prototype = {
     // create a group to put the title assets in 
     // so they can be manipulated as a whole
     this.titleGroup = this.game.add.group()
-      
     /** STEP 2 **/
     // create the title sprite
     // and add it to the group
     this.title = this.add.sprite(0,0,'title');
     this.titleGroup.add(this.title);
-    
     /** STEP 3 **/
     // create the bird sprite 
     // and add it to the title group
     this.bird = this.add.sprite(200,5,'bird');
     this.titleGroup.add(this.bird);
-    
     /** STEP 4 **/
     // add an animation to the bird
     // and begin the animation
     this.bird.animations.add('flap');
     this.bird.animations.play('flap', 12, true);
-    
     /** STEP 5 **/
     // Set the originating location of the group
     this.titleGroup.x = 30;
